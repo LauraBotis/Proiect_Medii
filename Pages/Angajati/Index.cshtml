@@ -19,9 +19,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Angajat[0].Prenume)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Angajat[0].Descriere)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,9 +31,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Prenume)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descriere)
-            </td>
+           
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
