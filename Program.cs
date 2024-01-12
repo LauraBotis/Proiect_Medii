@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Proiect_Medii.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Proiect_MediiContext>(options =>
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+options.UseSqlServer(builder.Configuration.GetConnectionString("Proiect_MediiContext") ?? throw new InvalidOperationException("Connectionstring 'Proiect_MediiContext' not found.")));
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("Proiect_MediiContext") ?? throw new InvalidOperationException("Connectionstring 'Proiect_MediiContext' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+ .AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 
@@ -17,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
