@@ -11,7 +11,7 @@ using Proiect_Medii.Models;
 
 namespace Proiect_Medii.Pages.Programari
 {
-    [Authorize(Roles = "Admin")]
+
 
     public class DetailsModel : PageModel
     {
@@ -31,7 +31,10 @@ namespace Proiect_Medii.Pages.Programari
                 return NotFound();
             }
 
-            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.ID == id);
+            var programare = await _context.Programare
+                 .Include(p => p.Serviciu)
+                 .Include(p => p.Client)
+                 .FirstOrDefaultAsync(m => m.ID == id);
             if (programare == null)
             {
                 return NotFound();
