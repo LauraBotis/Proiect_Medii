@@ -35,8 +35,9 @@
                 <span asp-validation-for="Programare.ServiciuID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Programare.ClientID" class="control-label"></label>
-                <select asp-for="Programare.ClientID" class ="form-control" asp-items="ViewBag.ClientID"></select>
+                <!-- Replace the <select> element for ClientID with the ID of the currently logged-in user -->
+                <input type="hidden" asp-for="Programare.ClientID" value="@User.Identity.Name" />
+                <label asp-for="Programare.ClientID" class="control-label">@User.Identity.Name</label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Trimite" class="btn btn-primary" />

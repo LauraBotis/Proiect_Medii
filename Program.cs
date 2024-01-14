@@ -14,6 +14,20 @@ options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
  .AddEntityFrameworkStores<LibraryIdentityContext>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+   policy.RequireRole("Admin"));
+});
+
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Servicii"); options.Conventions.AllowAnonymousToPage("/Servicii/Index");
+    options.Conventions.AllowAnonymousToPage("/Servicii/Details");
+    options.Conventions.AuthorizeFolder("/Clienti", "AdminPolicy");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
