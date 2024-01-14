@@ -5,6 +5,14 @@
     ViewData["Title"] = "Programare";
 }
 
+@functions {
+    bool IsWeekend(DateTime date)
+    {
+        // Verifică dacă ziua selectată este sâmbătă sau duminică
+        return date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+    }
+}
+
 <h1>Programare</h1>
 
 <h4>Bun venit, @User.Identity.Name!</h4>
@@ -16,27 +24,27 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Programare.Data" class="control-label">Select Date</label>
+                <label asp-for="Programare.Data" class="control-label">Selectează data</label>
                 <input asp-for="Programare.Data" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}" />
                 <span asp-validation-for="Programare.Data" class="text-danger"></span>
+
+                @if (Model != null && Model.Programare != null && IsWeekend(Model.Programare.Data))
+                {
+                    <div class="text-danger">Nu se pot face programări în zilele de sâmbătă și duminică.</div>
+                }
             </div>
             <div class="form-group">
-                <label asp-for="Programare.Ora" class="control-label">Select Time</label>
+                <label asp-for="Programare.Ora" class="control-label">Selectează ora</label>
 
-                <div class="form-check">
-                    <input type="radio" asp-for="Programare.Ora" class="form-check-input" value="10:00" id="ora10" />
-                    <label class="form-check-label" for="ora10">10:00</label>
-                </div>
+                @foreach (var ora in Model.OreDisponibile)
+                {
+                    var oraDisponibila = Model.IsOraDisponibila(Model.Programare.Data, ora);
 
-                <div class="form-check">
-                    <input type="radio" asp-for="Programare.Ora" class="form-check-input" value="13:00" id="ora13" />
-                    <label class="form-check-label" for="ora13">13:00</label>
-                </div>
-
-                <div class="form-check">
-                    <input type="radio" asp-for="Programare.Ora" class="form-check-input" value="16:00" id="ora16" />
-                    <label class="form-check-label" for="ora16">16:00</label>
-                </div>
+                    <div class="form-check">
+                        <input type="radio" asp-for="Programare.Ora" class="form-check-input" value="@ora" id="ora@ora" readonly="@(oraDisponibila ? "" : "readonly")" />
+                        <label class="form-check-label" for="ora@ora">@ora (@(oraDisponibila ? "Disponibila" : "Indisponibila"))</label>
+                    </div>
+                }
 
                 <span asp-validation-for="Programare.Ora" class="text-danger"></span>
             </div>
