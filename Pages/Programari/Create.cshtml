@@ -21,10 +21,26 @@
                 <span asp-validation-for="Programare.Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Programare.Ora" class="control-label"></label>
-                <input asp-for="Programare.Ora" class="form-control" />
+                <label class="control-label">Selectează Ora</label>
+                <div>
+                    <label>
+                        <input type="radio" asp-for="Programare.Ora" value="10" /> 10:00
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" asp-for="Programare.Ora" value="13" /> 13:00
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" asp-for="Programare.Ora" value="16" /> 16:00
+                    </label>
+                </div>
                 <span asp-validation-for="Programare.Ora" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
                 <label asp-for="Programare.Comentariu" class="control-label"></label>
                 <input asp-for="Programare.Comentariu" class="form-control" />
