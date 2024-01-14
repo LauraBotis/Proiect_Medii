@@ -11,6 +11,7 @@ using Proiect_Medii.Models;
 
 namespace Proiect_Medii.Pages.Programari
 {
+    [Authorize(Roles = "Admin,User")]
 
     public class IndexModel : PageModel
     {

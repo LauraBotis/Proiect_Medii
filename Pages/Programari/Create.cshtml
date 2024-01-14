@@ -7,6 +7,8 @@
 
 <h1>Programare</h1>
 
+<h4>Bun venit, @User.Identity.Name!</h4>
+
 <h4>Programează-te acum</h4>
 <hr />
 <div class="row">
@@ -33,11 +35,6 @@
                 <select asp-for="Programare.ServiciuID" class="form-control" asp-items="ViewBag.ServiciuID">
                 </select>
                 <span asp-validation-for="Programare.ServiciuID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <!-- Replace the <select> element for ClientID with the ID of the currently logged-in user -->
-                <input type="hidden" asp-for="Programare.ClientID" value="@User.Identity.Name" />
-                <label asp-for="Programare.ClientID" class="control-label">@User.Identity.Name</label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Trimite" class="btn btn-primary" />
